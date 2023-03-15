@@ -27,8 +27,8 @@
 import { ref, reactive, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { Login } from "@/api/interface";
-import { ElNotification } from "element-plus";
-import { loginApi } from "@/api/modules/login";
+import { ElMessage, ElNotification } from "element-plus";
+import { LoginApi } from "@/api/login.js";
 import { GlobalStore } from "@/stores";
 import { TabsStore } from "@/stores/modules/tabs";
 import { KeepAliveStore } from "@/stores/modules/keepAlive";
@@ -62,24 +62,34 @@ const login = (formEl: FormInstance | undefined) => {
 		try {
 			// 1.执行登录接口
 			// const { data } = await loginApi({ ...loginForm, password: md5(loginForm.password) });
-			const { data } = await loginApi();
-			globalStore.setToken(data.access_token);
+			const { code, message } = await LoginApi(loginForm);
+			// LoginApi(loginForm).then((res: any) => {
+			// console.log(res);
+			// });
+			// console.log(data);
+			if (code === 200) {
+				globalStore.setToken("dfhjksfhjdfhks");
+				// 2.添加动态路由
+				await initDynamicRouter();
 
-			// 2.添加动态路由
-			await initDynamicRouter();
+				// 3.清空 tabs、keepAlive 保留的数据
+				tabsStore.closeMultipleTab();
+				keepAlive.setKeepAliveName();
 
-			// 3.清空 tabs、keepAlive 保留的数据
-			tabsStore.closeMultipleTab();
-			keepAlive.setKeepAliveName();
-
-			// 4.跳转到首页
-			router.push(HOME_URL);
-			ElNotification({
-				title: getTimeState(),
-				message: "欢迎登录 Geeker-Admin",
-				type: "success",
-				duration: 3000
-			});
+				// 4.跳转到首页
+				router.push(HOME_URL);
+				ElNotification({
+					title: getTimeState(),
+					message: "欢迎登录 Geeker-Admin",
+					type: "success",
+					duration: 3000
+				});
+			} else {
+				ElMessage({
+					message: message,
+					type: "error"
+				});
+			}
 		} finally {
 			loading.value = false;
 		}
