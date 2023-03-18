@@ -4,8 +4,8 @@
 		<el-aside>
 			<div class="menu" :style="{ width: isCollapse ? '65px' : '210px' }">
 				<div class="logo flx-center">
-					<img src="@/assets/images/logo.svg" alt="logo" />
-					<span v-show="!isCollapse">环形矿场目标检测</span>
+					<img src="@/assets/images/logo1.png" alt="logo" style="position: relative; top: 5px; width: 60px" />
+					<span v-show="!isCollapse" style="position: relative; left: -20px">环形车辆智能检测</span>
 				</div>
 				<el-scrollbar>
 					<el-menu

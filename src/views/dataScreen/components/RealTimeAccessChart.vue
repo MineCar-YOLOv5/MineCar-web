@@ -6,7 +6,7 @@
 			<div class="actual-item" v-for="(item, index) in actualTotal.split('')" :key="index">
 				{{ item }}
 			</div>
-			<div class="actual-item">人</div>
+			<div class="actual-item">个</div>
 		</div>
 	</div>
 	<div class="echarts" id="RealTimeAccessChart"></div>
@@ -16,7 +16,7 @@
 import { ref, Ref } from "vue";
 import { ECharts, init } from "echarts";
 import "echarts-liquidfill";
-const actualTotal: Ref<string> = ref("216908");
+const actualTotal: Ref<string> = ref("352");
 const initChart = (data: number = 1): ECharts => {
 	const charEle = document.getElementById("RealTimeAccessChart") as HTMLElement;
 	const charEch: ECharts = init(charEle);
@@ -40,7 +40,7 @@ const initChart = (data: number = 1): ECharts => {
 				}
 			},
 			{
-				text: "预约量",
+				text: "数据量",
 				left: "49%",
 				top: "25%",
 				textAlign: "center",

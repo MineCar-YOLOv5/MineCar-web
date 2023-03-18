@@ -336,7 +336,7 @@
 					"meta": {
 						"icon": "Menu",
 						"title": "GitHub 仓库",
-						"isLink": "https://github.com/HalseySpicy/Geeker-Admin",
+						"isLink": "https://github.com/orgs/MineCar-YOLOv5/repositories",
 						"isHide": false,
 						"isFull": false,
 						"isAffix": false,

@@ -3,11 +3,11 @@
 	<div class="malefemaleRatio-main">
 		<div class="malefemaleRatio-header">
 			<div class="man">
-				<span>男士</span>
+				<span>正常</span>
 				<img src="../images/man.png" alt="" />
 			</div>
 			<div class="woman">
-				<span>女士</span>
+				<span>异物</span>
 				<img src="../images/woman.png" alt="" />
 			</div>
 		</div>

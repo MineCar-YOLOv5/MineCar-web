@@ -4,15 +4,17 @@
 			<div class="dataScreen-header">
 				<div class="header-lf">
 					<span class="header-screening" @click="router.push(HOME_URL)">首页</span>
+					<!--					<span class="header-screening">首页</span>-->
 				</div>
 				<div class="header-ct">
 					<div class="header-ct-title">
-						<span>智慧旅游可视化大数据展示平台</span>
+						<span>环形矿场矿车目标检测系统</span>
 						<div class="header-ct-warning">平台高峰预警信息（2条）</div>
 					</div>
 				</div>
 				<div class="header-rg">
-					<span class="header-download">统计报告</span>
+					<span class="header-download" v-show="!Choosemode" @click="changeMode">精确模式</span>
+					<span class="header-download" v-show="Choosemode" @click="changeMode">一般模式</span>
 					<span class="header-time">当前时间：{{ time }}</span>
 				</div>
 			</div>
@@ -20,7 +22,7 @@
 				<div class="dataScreen-lf">
 					<div class="dataScreen-top">
 						<div class="dataScreen-main-title">
-							<span>实时游客统计</span>
+							<span>实时数据统计</span>
 							<img src="./images/dataScreen-title.png" alt="" />
 						</div>
 						<!-- chart区域 -->
@@ -30,7 +32,7 @@
 					</div>
 					<div class="dataScreen-center">
 						<div class="dataScreen-main-title">
-							<span>男女比例</span>
+							<span>异物比例</span>
 							<img src="./images/dataScreen-title.png" alt="" />
 						</div>
 						<!-- chart区域 -->
@@ -68,16 +70,16 @@
 						</vue3-seamless-scroll> -->
 						<!--<mapChart ref="MapchartRef" />-->
 					</div>
-					<div class="dataScreen-cb">
-						<div class="dataScreen-main-title">
-							<span>未来30天游客量趋势图</span>
-							<img src="./images/dataScreen-title.png" alt="" />
-						</div>
-						<!-- chart区域 -->
-						<div class="dataScreen-main-chart">
-							<OverNext30Chart ref="OverNext30Ref" />
-						</div>
-					</div>
+					<!--					<div class="dataScreen-cb">-->
+					<!--						<div class="dataScreen-main-title">-->
+					<!--							<span>未来30天游客量趋势图</span>-->
+					<!--							<img src="./images/dataScreen-title.png" alt="" />-->
+					<!--						</div>-->
+					<!--						&lt;!&ndash; chart区域 &ndash;&gt;-->
+					<!--						<div class="dataScreen-main-chart">-->
+					<!--							<OverNext30Chart ref="OverNext30Ref" />-->
+					<!--						</div>-->
+					<!--					</div>-->
 				</div>
 				<div class="dataScreen-rg">
 					<div class="dataScreen-top">
@@ -128,12 +130,13 @@ import AgeRatioChart from "./components/AgeRatioChart.vue";
 import AnnualUseChart from "./components/AnnualUseChart.vue";
 import HotPlateChart from "./components/HotPlateChart.vue";
 import MaleFemaleRatioChart from "./components/MaleFemaleRatioChart.vue";
-import OverNext30Chart from "./components/OverNext30Chart.vue";
+// import OverNext30Chart from "./components/OverNext30Chart.vue";
 import PlatformSourceChart from "./components/PlatformSourceChart.vue";
 import RealTimeAccessChart from "./components/RealTimeAccessChart.vue";
+import { ElMessage } from "element-plus";
 // import { Vue3SeamlessScroll } from "vue3-seamless-scroll";
 // import alarmList from "./assets/alarmList.json";
-
+let Choosemode = false;
 const router = useRouter();
 const dataScreenRef = ref<HTMLElement | null>(null);
 
@@ -177,7 +180,20 @@ const MaleFemaleRatioRef = ref<ChartExpose>();
 const OverNext30Ref = ref<ChartExpose>();
 const PlatformSourceRef = ref<ChartExpose>();
 const MapchartRef = ref<ChartExpose>();
-
+const changeMode = () => {
+	Choosemode = !Choosemode;
+	if (Choosemode) {
+		ElMessage({
+			message: "已切换为一般模式",
+			type: "success"
+		});
+	} else {
+		ElMessage({
+			message: "已切换为精准模式",
+			type: "success"
+		});
+	}
+};
 // 初始化 charts参数
 let ageData = [
 	{

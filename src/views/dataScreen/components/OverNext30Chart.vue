@@ -172,7 +172,7 @@ const initChart = (data: any = {}): ECharts => {
 };
 // js 获取当前日期到之后一个月30天的日期区间
 const initDate = (): string[] => {
-	let dateList = [];
+	let dateList: any[] = [];
 	let startDate = new Date();
 	let endDate = new Date();
 	endDate.setDate(startDate.getDate() + 30);
