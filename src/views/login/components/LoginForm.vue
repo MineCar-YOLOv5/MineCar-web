@@ -61,12 +61,7 @@ const login = (formEl: FormInstance | undefined) => {
 		loading.value = true;
 		try {
 			// 1.执行登录接口
-			// const { data } = await loginApi({ ...loginForm, password: md5(loginForm.password) });
 			const { code, message } = await LoginApi(loginForm);
-			// LoginApi(loginForm).then((res: any) => {
-			// console.log(res);
-			// });
-			// console.log(data);
 			if (code === 200) {
 				globalStore.setToken("dfhjksfhjdfhks");
 				// 2.添加动态路由

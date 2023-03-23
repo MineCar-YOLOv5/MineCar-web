@@ -4,17 +4,17 @@
 			<div class="dataScreen-header">
 				<div class="header-lf">
 					<span class="header-screening" @click="router.push(HOME_URL)">首页</span>
-					<!--					<span class="header-screening">首页</span>-->
+					<span class="header-screening" @click="router.push(HOME_URL)"></span>
 				</div>
 				<div class="header-ct">
 					<div class="header-ct-title">
 						<span>环形矿场矿车目标检测系统</span>
-						<div class="header-ct-warning">平台高峰预警信息（2条）</div>
+						<div class="header-ct-warning">图片检测</div>
 					</div>
 				</div>
 				<div class="header-rg">
-					<span class="header-download" v-show="!Choosemode" @click="changeMode">精确模式</span>
-					<span class="header-download" v-show="Choosemode" @click="changeMode">一般模式</span>
+					<span class="header-download" v-if="!Choosemode" @click="changeMode">精确模式</span>
+					<span class="header-download" v-if="Choosemode" @click="changeMode">一般模式</span>
 					<span class="header-time">当前时间：{{ time }}</span>
 				</div>
 			</div>
@@ -70,16 +70,16 @@
 						</vue3-seamless-scroll> -->
 						<!--<mapChart ref="MapchartRef" />-->
 					</div>
-					<!--					<div class="dataScreen-cb">-->
-					<!--						<div class="dataScreen-main-title">-->
-					<!--							<span>未来30天游客量趋势图</span>-->
-					<!--							<img src="./images/dataScreen-title.png" alt="" />-->
-					<!--						</div>-->
-					<!--						&lt;!&ndash; chart区域 &ndash;&gt;-->
-					<!--						<div class="dataScreen-main-chart">-->
-					<!--							<OverNext30Chart ref="OverNext30Ref" />-->
-					<!--						</div>-->
-					<!--					</div>-->
+					<div class="dataScreen-cb">
+						<div class="dataScreen-main-title">
+							<span>未来30天游客量趋势图</span>
+							<img src="./images/dataScreen-title.png" alt="" />
+						</div>
+						<!-- chart区域 -->
+						<div class="dataScreen-main-chart">
+							<OverNext30Chart ref="OverNext30Ref" />
+						</div>
+					</div>
 				</div>
 				<div class="dataScreen-rg">
 					<div class="dataScreen-top">
