@@ -152,7 +152,9 @@
 				.dataScreen-map {
 					position: relative;
 					box-sizing: border-box;
+					display: flex;
 					flex: 1;
+					justify-content: center;
 					width: 100%;
 					margin-top: 78px;
 					.dataScreen-map-title {

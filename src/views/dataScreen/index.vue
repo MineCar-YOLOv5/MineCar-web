@@ -4,17 +4,16 @@
 			<div class="dataScreen-header">
 				<div class="header-lf">
 					<span class="header-screening" @click="router.push(HOME_URL)">首页</span>
-					<span class="header-screening" @click="router.push(HOME_URL)"></span>
 				</div>
 				<div class="header-ct">
 					<div class="header-ct-title">
-						<span>环形矿场矿车目标检测系统</span>
+						<span>环形矿场矿车智能检测系统</span>
 						<div class="header-ct-warning">图片检测</div>
 					</div>
 				</div>
 				<div class="header-rg">
-					<span class="header-download" v-if="!Choosemode" @click="changeMode">精确模式</span>
-					<span class="header-download" v-if="Choosemode" @click="changeMode">一般模式</span>
+					<span class="header-download" v-show="!Choosemode" @click="changeMode">图片检测</span>
+					<span class="header-download" v-show="Choosemode" @click="changeMode">视频检测</span>
 					<span class="header-time">当前时间：{{ time }}</span>
 				</div>
 			</div>
@@ -53,33 +52,27 @@
 				</div>
 				<div class="dataScreen-ct">
 					<div class="dataScreen-map">
-						<div class="dataScreen-map-title">景区实时客流量</div>
-						<!-- <vue3-seamless-scroll
-							:list="alarmData"
-							class="dataScreen-alarm"
-							:step="0.5"
-							:hover="true"
-							:limitScrollNum="3"
-						>
-							<div class="dataScreen-alarm">
-								<div class="map-item" v-for="item in alarmData" :key="item.id">
-									<img src="./images/dataScreen-alarm.png" alt="" />
-									<span class="map-alarm sle">{{ item.label }} 预警：{{ item.warnMsg }}</span>
-								</div>
-							</div>
-						</vue3-seamless-scroll> -->
-						<!--<mapChart ref="MapchartRef" />-->
+						<div class="dataScreen-map-title">检测结果</div>
+						<el-button-group style="position: absolute; top: 5%; width: 100%">
+							<el-button type="success" size="large" @click="centerDialogVisible = true">上传图片 </el-button>
+							<el-button type="danger" size="large" @click="clearImg">清空图片 </el-button>
+						</el-button-group>
+						<Picturecomparison
+							:img="targetData"
+							style="position: relative; width: 100%; height: 90%; margin-top: 10%"
+							v-show="!Choosemode"
+						/>
 					</div>
-					<div class="dataScreen-cb">
-						<div class="dataScreen-main-title">
-							<span>未来30天游客量趋势图</span>
-							<img src="./images/dataScreen-title.png" alt="" />
-						</div>
-						<!-- chart区域 -->
-						<div class="dataScreen-main-chart">
-							<OverNext30Chart ref="OverNext30Ref" />
-						</div>
-					</div>
+					<!--					<div class="dataScreen-cb">-->
+					<!--						<div class="dataScreen-main-title">-->
+					<!--							<span>未来30天游客量趋势图</span>-->
+					<!--							<img src="./images/dataScreen-title.png" alt="" />-->
+					<!--						</div>-->
+					<!--						&lt;!&ndash; chart区域 &ndash;&gt;-->
+					<!--						<div class="dataScreen-main-chart">-->
+					<!--							<OverNext30Chart ref="OverNext30Ref" />-->
+					<!--						</div>-->
+					<!--					</div>-->
 				</div>
 				<div class="dataScreen-rg">
 					<div class="dataScreen-top">
@@ -115,10 +108,73 @@
 				</div>
 			</div>
 		</div>
+		<el-dialog v-model="centerDialogVisible" title="上传图片" width="30%" align-center>
+			<el-upload
+				ref="upload"
+				v-model="fileList"
+				class="upload-demo"
+				action="http://localhost:8000/image"
+				method="post"
+				name="image"
+				:on-progress="beforeupload"
+				:on-success="uploadSuccess"
+				:limit="1"
+				:on-exceed="handleExceed"
+				:auto-upload="false"
+				show-file-list
+				list-type="picture"
+			>
+				<el-image :src="uploadImg"></el-image>
+				<el-button-group>
+					<el-button type="primary">选择图片</el-button>
+				</el-button-group>
+				<template #tip>
+					<div class="el-upload__tip text-red">只能上传一张图片</div>
+				</template>
+			</el-upload>
+			<template #footer>
+				<span class="dialog-footer">
+					<el-button @click="centerDialogVisible = false">Cancel</el-button>
+					<el-button type="primary" @click="submitUpload"> Confirm </el-button>
+				</span>
+			</template>
+		</el-dialog>
 	</div>
 </template>
 
 <script setup lang="ts">
+import type { UploadProps, UploadUserFile, UploadInstance, UploadRawFile } from "element-plus";
+import { genFileId } from "element-plus";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const fileList = ref<UploadUserFile[]>([]);
+const targetData = ref([""]);
+let uploadImg = ref("");
+const upload = ref<UploadInstance>();
+let centerDialogVisible = false;
+const handleExceed: UploadProps["onExceed"] = files => {
+	upload.value!.clearFiles();
+	const file = files[0] as UploadRawFile;
+	file.uid = genFileId();
+	upload.value!.handleStart(file);
+};
+const beforeupload = () => {
+	console.log(1111);
+	// console.log(fileList);
+	// console.log(upload.value);
+};
+const submitUpload = () => {
+	centerDialogVisible = false;
+	upload.value!.submit();
+};
+// import { reactive } from "vue";
+const uploadSuccess = (res, file) => {
+	targetData.value.push(file.url);
+	targetData.value.push("data:image/png;base64," + res.data);
+	console.log(targetData);
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import Picturecomparison from "@/views/dataScreen/components/Picturecomparison.vue";
 import { ref, Ref, onMounted, onBeforeUnmount } from "vue";
 import { HOME_URL } from "@/config/config";
 import { randomNum } from "@/utils/util";
@@ -184,12 +240,12 @@ const changeMode = () => {
 	Choosemode = !Choosemode;
 	if (Choosemode) {
 		ElMessage({
-			message: "已切换为一般模式",
+			message: "已切换为视频模式",
 			type: "success"
 		});
 	} else {
 		ElMessage({
-			message: "已切换为精准模式",
+			message: "已切换为图片模式",
 			type: "success"
 		});
 	}
@@ -437,4 +493,7 @@ onBeforeUnmount(() => {
 </script>
 <style lang="scss" scoped>
 @import "./index.scss";
+.dialog-footer button:first-child {
+	margin-right: 10px;
+}
 </style>
