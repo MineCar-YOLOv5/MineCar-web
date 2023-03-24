@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const VUE_APP_BASE_API = "http://152.136.123.49:8000";
-const VUE_APP_BASE_API = "http://localhost:8000";
+const VUE_APP_BASE_API = "http://152.136.123.49:8000";
+// const VUE_APP_BASE_API = "http://localhost:8000";
 import { ElMessage } from "element-plus";
 // create an axios instance
 const service = axios.create({

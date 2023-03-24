@@ -77,7 +77,7 @@
 				<div class="dataScreen-rg">
 					<div class="dataScreen-top">
 						<div class="dataScreen-main-title">
-							<span>热门景区排行</span>
+							<span>识别准确率排行</span>
 							<img src="./images/dataScreen-title.png" alt="" />
 						</div>
 						<!-- chart区域 -->
@@ -116,7 +116,6 @@
 				action="http://localhost:8000/image"
 				method="post"
 				name="image"
-				:on-progress="beforeupload"
 				:on-success="uploadSuccess"
 				:limit="1"
 				:on-exceed="handleExceed"
@@ -146,34 +145,6 @@
 import type { UploadProps, UploadUserFile, UploadInstance, UploadRawFile } from "element-plus";
 import { genFileId } from "element-plus";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const fileList = ref<UploadUserFile[]>([]);
-const targetData = ref([""]);
-let uploadImg = ref("");
-const upload = ref<UploadInstance>();
-let centerDialogVisible = false;
-const handleExceed: UploadProps["onExceed"] = files => {
-	upload.value!.clearFiles();
-	const file = files[0] as UploadRawFile;
-	file.uid = genFileId();
-	upload.value!.handleStart(file);
-};
-const beforeupload = () => {
-	console.log(1111);
-	// console.log(fileList);
-	// console.log(upload.value);
-};
-const submitUpload = () => {
-	centerDialogVisible = false;
-	upload.value!.submit();
-};
-// import { reactive } from "vue";
-const uploadSuccess = (res, file) => {
-	targetData.value.push(file.url);
-	targetData.value.push("data:image/png;base64," + res.data);
-	console.log(targetData);
-};
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import Picturecomparison from "@/views/dataScreen/components/Picturecomparison.vue";
 import { ref, Ref, onMounted, onBeforeUnmount } from "vue";
 import { HOME_URL } from "@/config/config";
@@ -195,6 +166,32 @@ import { ElMessage } from "element-plus";
 let Choosemode = false;
 const router = useRouter();
 const dataScreenRef = ref<HTMLElement | null>(null);
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const fileList = ref<UploadUserFile[]>([]);
+let targetData = ref([""]);
+let uploadImg = ref("");
+const upload = ref<UploadInstance>();
+let centerDialogVisible = false;
+const handleExceed: UploadProps["onExceed"] = files => {
+	upload.value!.clearFiles();
+	const file = files[0] as UploadRawFile;
+	file.uid = genFileId();
+	upload.value!.handleStart(file);
+};
+const clearImg = () => {
+	targetData = ref([""]);
+};
+const submitUpload = () => {
+	centerDialogVisible = false;
+	upload.value!.submit();
+};
+// import { reactive } from "vue";
+const uploadSuccess = (res, file) => {
+	targetData.value.push(file.url);
+	targetData.value.push("data:image/png;base64," + res.data);
+	console.log(targetData);
+};
 
 onMounted(() => {
 	// 初始化时为外层盒子加上缩放属性，防止刷新界面时就已经缩放
@@ -285,34 +282,28 @@ let ageData = [
 ];
 let hotData = [
 	{
-		value: 79999,
-		name: "峨眉山",
+		value: 4.5,
+		name: "矿车",
+		percentage: "90%",
+		maxValue: 5
+	},
+	{
+		value: 4,
+		name: "煤矸石",
 		percentage: "80%",
-		maxValue: 100000
+		maxValue: 5
 	},
 	{
-		value: 59999,
-		name: "稻城亚丁",
-		percentage: "60%",
-		maxValue: 100000
+		value: 4,
+		name: "挡板",
+		percentage: "80%",
+		maxValue: 5
 	},
 	{
-		value: 49999,
-		name: "九寨沟",
-		percentage: "50%",
-		maxValue: 100000
-	},
-	{
-		value: 39999,
-		name: "万里长城",
-		percentage: "40%",
-		maxValue: 100000
-	},
-	{
-		value: 29999,
-		name: "北京故宫",
-		percentage: "30%",
-		maxValue: 100000
+		value: 4,
+		name: "煤矸石",
+		percentage: "80%",
+		maxValue: 5
 	}
 ];
 let platFromData = [

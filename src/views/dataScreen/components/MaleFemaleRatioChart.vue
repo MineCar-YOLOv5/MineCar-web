@@ -4,11 +4,11 @@
 		<div class="malefemaleRatio-header">
 			<div class="man">
 				<span>正常</span>
-				<img src="../images/man.png" alt="" />
+				<img src="../images/dataScreen-alarm.png" alt="" />
 			</div>
 			<div class="woman">
 				<span>异物</span>
-				<img src="../images/woman.png" alt="" />
+				<img src="../images/dataScreen-alarm.png" alt="" />
 			</div>
 		</div>
 		<!-- echarts -->

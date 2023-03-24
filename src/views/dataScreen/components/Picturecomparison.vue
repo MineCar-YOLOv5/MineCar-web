@@ -62,7 +62,7 @@
 <!--// 	}-->
 <!--// });-->
 <!--</script>-->
-<script>
+<script lang="ts">
 // import UploadUserFile from "element-plus";
 export default {
 	name: "Picturecomparison",
@@ -89,19 +89,6 @@ export default {
 			} else {
 				this.imgWidth = (this.imgWidth * 800) / this.imgHeight;
 			}
-		}
-	},
-	methods: {
-		clearImg() {
-			this.img = [];
-		},
-		httpRequest(uploadFile, uploadFiles) {
-			console.log(1111);
-			console.log(uploadFile);
-			console.log(uploadFiles);
-		},
-		submitUpload() {
-			console.log(this.fileList);
 		}
 	}
 };

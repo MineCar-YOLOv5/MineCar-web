@@ -1,7 +1,7 @@
 <template>
 	<!-- 实时访问 -->
 	<div class="actual-total">
-		<div class="expect-total">可预约总量<i>999999</i>人</div>
+		<!--		<div class="expect-total">可预约总量<i>999999</i>人</div>-->
 		<div class="actual-total">
 			<div class="actual-item" v-for="(item, index) in actualTotal.split('')" :key="index">
 				{{ item }}
@@ -16,8 +16,8 @@
 import { ref, Ref } from "vue";
 import { ECharts, init } from "echarts";
 import "echarts-liquidfill";
-const actualTotal: Ref<string> = ref("352");
-const initChart = (data: number = 1): ECharts => {
+const actualTotal: Ref<string> = ref("35");
+const initChart = (data: number = 2): ECharts => {
 	const charEle = document.getElementById("RealTimeAccessChart") as HTMLElement;
 	const charEch: ECharts = init(charEle);
 	const option = {
