@@ -1,9 +1,7 @@
 {
-	"name": "geeker-admin",
+	"name": "MineCar",
 	"private": true,
 	"version": "0.0.7",
-	"description": "Geeker-Admin 后台管理系统",
-	"author": "SpicyBoy <848130454@qq.com>",
 	"license": "MIT",
 	"scripts": {
 		"dev": "vite",
