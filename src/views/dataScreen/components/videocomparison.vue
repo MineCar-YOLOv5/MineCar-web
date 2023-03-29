@@ -1,29 +1,24 @@
 <template>
 	<div class="contrast">
 		<div :style="{ width: imgWidth + 'px' }" class="container">
-			<div :style="{ width: beforWidth + '%' }" class="img-box img-before">
-				<img :src="img[1]" alt="" />
-			</div>
 			<div class="img-box img-after">
-				<img :src="img[2]" alt="" />
+				<img :src="imgurl" alt="" style="width: 120%" />
 			</div>
-			<input v-model="beforWidth" type="range" min="0" max="100" class="slider" />
-			<div :style="{ left: beforWidth + '%' }" class="btn" />
 		</div>
 	</div>
 </template>
-<script lang="ts">
-// import UploadUserFile from "element-plus";
+
+<script>
 export default {
-	name: "Picturecomparison",
-	// eslint-disable-next-line vue/require-prop-types
-	props: ["img"],
+	name: "Videocomparison",
 	data() {
 		return {
 			imgWidth: 2154,
 			imgHeight: 2154,
 			beforWidth: 50,
-			fileList: []
+			path: "ws://127.0.0.1:8000/ws/video/",
+			socket: "",
+			imgurl: ""
 		};
 	},
 	created() {
@@ -35,6 +30,51 @@ export default {
 			} else {
 				this.imgWidth = (this.imgWidth * 800) / this.imgHeight;
 			}
+		}
+	},
+	mounted() {
+		// 初始化
+		this.init();
+	},
+	unmounted() {
+		// 销毁监听
+		this.socket.onclose = this.close;
+	},
+	beforeUnmount() {
+		this.socket.send = this.send({
+			message: "close"
+		});
+		this.socket.onclose = this.close;
+	},
+	methods: {
+		init: function () {
+			if (typeof WebSocket === "undefined") {
+				alert("您的浏览器不支持socket");
+			} else {
+				// 实例化socket
+				this.socket = new WebSocket(this.path);
+				// 监听socket连接
+				this.socket.onopen = this.open;
+				// 监听socket错误信息
+				this.socket.onerror = this.error;
+				// 监听socket消息
+				this.socket.onmessage = this.getMessage;
+			}
+		},
+		open: function () {
+			console.log("socket连接成功");
+		},
+		error: function () {
+			console.log("连接错误");
+		},
+		getMessage: function (msg) {
+			this.imgurl = "data:image/png;base64," + msg.data;
+		},
+		send: function (params) {
+			this.socket.send(params);
+		},
+		close: function () {
+			console.log("socket已经关闭");
 		}
 	}
 };
@@ -114,25 +154,5 @@ img {
 	position: absolute;
 	top: 50%;
 	z-index: 2;
-}
-.btn ::before {
-	position: absolute;
-	left: -15px;
-	display: inline-block;
-	padding: 5px;
-	content: "";
-	border: solid #ffffff;
-	border-width: 0 2px 2px 0;
-	transform: rotate(135deg);
-}
-.btn ::after {
-	position: absolute;
-	left: 3px;
-	display: inline-block;
-	padding: 5px;
-	content: "";
-	border: solid #ffffff;
-	border-width: 0 2px 2px 0;
-	transform: rotate(-45deg);
 }
 </style>

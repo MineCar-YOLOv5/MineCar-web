@@ -53,15 +53,16 @@
 				<div class="dataScreen-ct">
 					<div class="dataScreen-map">
 						<div class="dataScreen-map-title">检测结果</div>
-						<el-button-group style="position: absolute; top: 5%; width: 100%">
+						<el-button-group style="position: absolute; top: 5%; width: 100%" v-show="!Choosemode">
 							<el-button type="success" size="large" @click="centerDialogVisible = true">上传图片 </el-button>
 							<el-button type="danger" size="large" @click="clearImg">清空图片 </el-button>
 						</el-button-group>
 						<Picturecomparison
 							:img="targetData"
 							style="position: relative; width: 100%; height: 90%; margin-top: 10%"
-							v-show="!Choosemode"
+							v-if="!Choosemode"
 						/>
+						<videocomparison v-if="Choosemode" style="position: relative; width: 100%; height: 90%; margin-top: 10%" />
 					</div>
 					<!--					<div class="dataScreen-cb">-->
 					<!--						<div class="dataScreen-main-title">-->
@@ -133,8 +134,8 @@
 			</el-upload>
 			<template #footer>
 				<span class="dialog-footer">
-					<el-button @click="centerDialogVisible = false">Cancel</el-button>
-					<el-button type="primary" @click="submitUpload"> Confirm </el-button>
+					<el-button @click="centerDialogVisible = false">取消</el-button>
+					<el-button type="primary" @click="submitUpload">确认</el-button>
 				</span>
 			</template>
 		</el-dialog>
@@ -146,6 +147,7 @@ import type { UploadProps, UploadUserFile, UploadInstance, UploadRawFile } from 
 import { genFileId } from "element-plus";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import Picturecomparison from "@/views/dataScreen/components/Picturecomparison.vue";
+import videocomparison from "@/views/dataScreen/components/videocomparison.vue";
 import { ref, Ref, onMounted, onBeforeUnmount } from "vue";
 import { HOME_URL } from "@/config/config";
 import { randomNum } from "@/utils/util";
@@ -188,6 +190,7 @@ const submitUpload = () => {
 };
 // import { reactive } from "vue";
 const uploadSuccess = (res, file) => {
+	upload.value!.clearFiles();
 	targetData.value.push(file.url);
 	targetData.value.push("data:image/png;base64," + res.data);
 	console.log(targetData);
