@@ -49,7 +49,7 @@ const initChart = (data: any): ECharts => {
 		series: [
 			{
 				zlevel: 1,
-				name: "年龄比例",
+				name: "检测物体比例",
 				type: "pie",
 				selectedMode: "single",
 				radius: [50, 90],

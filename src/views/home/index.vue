@@ -56,44 +56,44 @@
 				</el-row>
 			</div>
 		</div>
-		<div class="card bottom-box">
-			<div class="bottom-title">数据来源</div>
-			<div class="curve-echarts" style="padding-top: 2rem">
-				<Curve ref="curveRef" />
-			</div>
-		</div>
+		<!--		<div class="card bottom-box">-->
+		<!--			<div class="bottom-title">数据来源</div>-->
+		<!--			<div class="curve-echarts" style="padding-top: 2rem">-->
+		<!--				<Curve ref="curveRef" />-->
+		<!--			</div>-->
+		<!--		</div>-->
 	</div>
 </template>
 
 <script setup lang="ts" name="dataVisualize">
 import { ref, onMounted } from "vue";
 import Pie from "./components/pie.vue";
-import Curve from "./components/curve.vue";
+// import Curve from "./components/curve.vue";
 
 // const tabActive = ref(1);
 const pieRef = ref();
-const curveRef = ref();
+// const curveRef = ref();
 
 onMounted(() => {
 	pieRef.value.initChart(pieData);
-	curveRef.value.initChart(curveData);
+	// curveRef.value.initChart(curveData);
 });
 
 const pieData = [
 	{ value: 5000, name: "图片数据量" },
 	{ value: 5000, name: "视频数据量" }
 ];
-const curveData = [
-	{ value: 30, spotName: "掘金" },
-	{ value: 90, spotName: "CSDN" },
-	{ value: 10, spotName: "Gitee" },
-	{ value: 70, spotName: "GitHub" },
-	{ value: 20, spotName: "知乎" },
-	{ value: 60, spotName: "MyBlog" },
-	{ value: 55, spotName: "简书" },
-	{ value: 80, spotName: "StackOverFlow" },
-	{ value: 50, spotName: "博客园" }
-];
+// const curveData = [
+// 	{ value: 30, spotName: "掘金" },
+// 	{ value: 90, spotName: "CSDN" },
+// 	{ value: 10, spotName: "Gitee" },
+// 	{ value: 70, spotName: "GitHub" },
+// 	{ value: 20, spotName: "知乎" },
+// 	{ value: 60, spotName: "MyBlog" },
+// 	{ value: 55, spotName: "简书" },
+// 	{ value: 80, spotName: "StackOverFlow" },
+// 	{ value: 50, spotName: "博客园" }
+// ];
 </script>
 
 <style scoped lang="scss">

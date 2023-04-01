@@ -41,7 +41,7 @@
 					</div>
 					<div class="dataScreen-bottom">
 						<div class="dataScreen-main-title">
-							<span>年龄比例</span>
+							<span>物体比例</span>
 							<img src="./images/dataScreen-title.png" alt="" />
 						</div>
 						<!-- chart区域 -->
@@ -88,7 +88,7 @@
 					</div>
 					<div class="dataScreen-center">
 						<div class="dataScreen-main-title">
-							<span>年度游客量对比</span>
+							<span>数据量对比</span>
 							<img src="./images/dataScreen-title.png" alt="" />
 						</div>
 						<!-- chart区域 -->
@@ -98,7 +98,7 @@
 					</div>
 					<div class="dataScreen-bottom">
 						<div class="dataScreen-main-title">
-							<span>预约渠道数据统计</span>
+							<span>数据统计</span>
 							<img src="./images/dataScreen-title.png" alt="" />
 						</div>
 						<!-- chart区域 -->
@@ -114,7 +114,7 @@
 				ref="upload"
 				v-model="fileList"
 				class="upload-demo"
-				action="http://localhost:8000/image"
+				action="http://152.136.123.49:8000/image"
 				method="post"
 				name="image"
 				:on-success="uploadSuccess"
@@ -253,34 +253,19 @@ const changeMode = () => {
 // 初始化 charts参数
 let ageData = [
 	{
-		value: 200,
-		name: "10岁以下",
-		percentage: "16%"
+		value: 30,
+		name: "矿车",
+		percentage: "30%"
 	},
 	{
-		value: 110,
-		name: "10 - 18岁",
-		percentage: "8%"
+		value: 30,
+		name: "挡板",
+		percentage: "30%"
 	},
 	{
-		value: 150,
-		name: "18 - 30岁",
-		percentage: "12%"
-	},
-	{
-		value: 310,
-		name: "30 - 40岁",
-		percentage: "24%"
-	},
-	{
-		value: 250,
-		name: "40 - 60岁",
-		percentage: "20%"
-	},
-	{
-		value: 260,
-		name: "60岁以上",
-		percentage: "20%"
+		value: 60,
+		name: "煤矸石",
+		percentage: "60%"
 	}
 ];
 let hotData = [
@@ -312,17 +297,17 @@ let hotData = [
 let platFromData = [
 	{
 		value: 40,
-		name: "智慧文旅平台",
+		name: "挡板",
 		percentage: "40%"
 	},
 	{
 		value: 10,
-		name: "携程",
+		name: "矿车",
 		percentage: "10%"
 	},
 	{
 		value: 20,
-		name: "飞猪",
+		name: "煤矸石",
 		percentage: "20%"
 	},
 	{

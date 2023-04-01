@@ -40,7 +40,7 @@ const initChart = (data: ChartProp): ECharts => {
 			{
 				type: "category",
 				position: "left",
-				data: ["男生"],
+				data: ["煤矸石"],
 				axisTick: {
 					show: false
 				},
@@ -54,7 +54,7 @@ const initChart = (data: ChartProp): ECharts => {
 			{
 				type: "category",
 				position: "right",
-				data: ["女士"],
+				data: ["其他"],
 				axisTick: {
 					show: false
 				},
@@ -96,7 +96,7 @@ const initChart = (data: ChartProp): ECharts => {
 					offset: [0, -20],
 					fontSize: 12,
 					formatter: () => {
-						return `男士 ${data.man * 100}%`;
+						return `煤矸石 ${data.man * 100}%`;
 					}
 				}
 			},
@@ -116,7 +116,7 @@ const initChart = (data: ChartProp): ECharts => {
 					offset: [0, -20],
 					fontSize: 12,
 					formatter: () => {
-						return `女士 ${data.woman * 100}%`;
+						return `其他 ${data.woman * 100}%`;
 					}
 				}
 			}
