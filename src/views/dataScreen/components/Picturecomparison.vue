@@ -12,7 +12,7 @@
 		</div>
 	</div>
 </template>
-<script lang="ts">
+<script>
 // import UploadUserFile from "element-plus";
 export default {
 	name: "Picturecomparison",

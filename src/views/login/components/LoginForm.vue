@@ -61,8 +61,8 @@ const login = (formEl: FormInstance | undefined) => {
 		loading.value = true;
 		try {
 			// 1.执行登录接口
-			const { code, message } = await LoginApi(loginForm);
-			if (code === 200) {
+			const data = await LoginApi(loginForm);
+			if (data.data.code === 200) {
 				globalStore.setToken("dfhjksfhjdfhks");
 				// 2.添加动态路由
 				await initDynamicRouter();
@@ -81,7 +81,7 @@ const login = (formEl: FormInstance | undefined) => {
 				});
 			} else {
 				ElMessage({
-					message: message,
+					message: data.data.message,
 					type: "error"
 				});
 			}

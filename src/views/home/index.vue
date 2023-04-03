@@ -10,7 +10,7 @@
 							<div class="img-box">
 								<img src="./images/book-sum.png" alt="" />
 							</div>
-							<span class="left-number">96.5%</span>
+							<span class="left-number">89.05 %</span>
 						</div>
 					</el-col>
 					<el-col class="mb40" :xs="24" :sm="12" :md="12" :lg="8" :xl="8">
@@ -33,7 +33,7 @@
 								<div class="traffic-img">
 									<img src="./images/today.png" alt="" />
 								</div>
-								<span class="item-value"> 20 + 次</span>
+								<span class="item-value"> 89 次</span>
 								<span class="traffic-name sle">模型调优训练次数</span>
 							</div>
 							<div class="yesterday-traffic traffic-box">
@@ -80,8 +80,8 @@ onMounted(() => {
 });
 
 const pieData = [
-	{ value: 5000, name: "图片数据量" },
-	{ value: 5000, name: "视频数据量" }
+	{ value: 3389, name: "图片数据量" },
+	{ value: 0, name: "视频数据量" }
 ];
 // const curveData = [
 // 	{ value: 30, spotName: "掘金" },

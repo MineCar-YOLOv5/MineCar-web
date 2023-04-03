@@ -114,7 +114,7 @@
 				ref="upload"
 				v-model="fileList"
 				class="upload-demo"
-				action="http://152.136.123.49:8000/image"
+				action="http://localhost:8000/image"
 				method="post"
 				name="image"
 				:on-success="uploadSuccess"
@@ -192,7 +192,7 @@ const submitUpload = () => {
 const uploadSuccess = (res, file) => {
 	upload.value!.clearFiles();
 	targetData.value.push(file.url);
-	targetData.value.push("data:image/png;base64," + res.data);
+	targetData.value.push("data:image/png;base64," + res.data.data);
 	console.log(targetData);
 };
 
