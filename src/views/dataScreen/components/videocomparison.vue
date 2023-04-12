@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import { ElMessage } from "element-plus";
+
 export default {
 	name: "Videocomparison",
 	data() {
@@ -18,7 +20,8 @@ export default {
 			beforWidth: 50,
 			path: "ws://127.0.0.1:8000/ws/video/",
 			socket: "",
-			imgurl: ""
+			imgurl: "",
+			timer: null
 		};
 	},
 	created() {
@@ -37,14 +40,7 @@ export default {
 		this.init();
 	},
 	unmounted() {
-		// 销毁监听
-		this.socket.onclose = this.close;
-	},
-	beforeUnmount() {
-		this.socket.send = this.send({
-			message: "close"
-		});
-		this.socket.onclose = this.close;
+		this.close();
 	},
 	methods: {
 		init: function () {
@@ -59,13 +55,25 @@ export default {
 				this.socket.onerror = this.error;
 				// 监听socket消息
 				this.socket.onmessage = this.getMessage;
+				// 关闭socket
+				this.socket.onclose = this.close;
 			}
 		},
 		open: function () {
-			console.log("socket连接成功");
+			ElMessage({
+				message: "websocket连接成功",
+				type: "success"
+			});
+			this.timer = setInterval(() => {
+				this.send("start");
+			}, 1000);
+			this.timer;
 		},
 		error: function () {
-			console.log("连接错误");
+			ElMessage({
+				message: "websocket连接错误",
+				type: "error"
+			});
 		},
 		getMessage: function (msg) {
 			this.imgurl = "data:image/png;base64," + msg.data;
@@ -73,10 +81,19 @@ export default {
 		send: function (params) {
 			this.socket.send(params);
 		},
-		close: function () {
-			console.log("socket已经关闭");
+		async close() {
+			ElMessage({
+				message: "websocket已关闭",
+				type: "success"
+			});
+			this.timer && clearTimeout(this.timer);
+			this.timer = null;
+			await this.send("stop");
 		}
 	}
+	// onUnmounted(){
+	// 	this.
+	// }
 };
 </script>
 
