@@ -2,7 +2,7 @@
 
 ### 介绍 📖
 
-MineCar-web 基于 Vue3.2、TypeScript、Vite3、Pinia、Element-Plus的环形矿场矿车目标检测系统前端，使用目前最新技术栈开发。基于开源项目Geeker-Admin开发
+MineCar-web 基于 Vue3.2、TypeScript、Vite3、Pinia、Element-Plus 的环形矿场矿车目标检测系统前端，使用目前最新技术栈开发。基于开源项目 Geeker-Admin 开发
 
 ### 开源代码仓库 ⭐
 
@@ -36,6 +36,25 @@ npm install
 
 # npm install 安装失败，请升级 nodejs 到 16 以上，或尝试使用以下命令：
 npm install --registry=https://registry.npm.taobao.org
+```
+
+- **Change：**
+
+![](./env.jpg)
+
+```text
+修改 .env 中的配置
+# 本地部署
+VITE_USE_ADDRESS = "http://localhost:8000"
+VITE_UPLOAD_ADDRESS = "http://localhost:8000/image"
+VITE_Detection = "ws://127.0.0.1:8000/ws/video/"
+
+# 线上部署
+# VITE_USE_ADDRESS = "http://120.26.1.222:8000"
+# VITE_UPLOAD_ADDRESS = "http://120.26.1.222:8000/image"
+# VITE_Detection = "ws://http://120.26.1.222:8000/ws/video/"
+
+取消对应注释即可
 ```
 
 - **Run：**

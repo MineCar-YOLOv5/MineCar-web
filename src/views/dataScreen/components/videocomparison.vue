@@ -18,13 +18,17 @@ export default {
 			imgWidth: 2154,
 			imgHeight: 2154,
 			beforWidth: 50,
-			path: "ws://127.0.0.1:8000/ws/video/",
+			// path: "ws://http://127.0.0.0:8000/ws/video/",
+			path: "",
 			socket: "",
 			imgurl: "",
 			timer: null
 		};
 	},
 	created() {
+		// console.log(import.meta.env.VITE_Detection);
+		this.path = import.meta.env.VITE_Detection;
+		console.log(this.path);
 		// 容器最大宽高：1400*800，图片宽高和这个做对比
 		// 如果超出，做等比缩放（以比例大的缩放）
 		if (this.imgWidth > 1400 || this.imgHeight > 800) {
@@ -49,6 +53,7 @@ export default {
 			} else {
 				// 实例化socket
 				this.socket = new WebSocket(this.path);
+				console.log(1111);
 				// 监听socket连接
 				this.socket.onopen = this.open;
 				// 监听socket错误信息

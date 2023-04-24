@@ -114,7 +114,7 @@
 				ref="upload"
 				v-model="fileList"
 				class="upload-demo"
-				action="http://localhost:8000/image"
+				:action="uploadFileurl"
 				method="post"
 				name="image"
 				:on-success="uploadSuccess"
@@ -195,8 +195,10 @@ const uploadSuccess = (res, file) => {
 	targetData.value.push("data:image/png;base64," + res.data.data);
 	console.log(targetData);
 };
+let uploadFileurl = ref("");
 
 onMounted(() => {
+	uploadFileurl = import.meta.env.VITE_UPLOAD_ADDRESS;
 	// 初始化时为外层盒子加上缩放属性，防止刷新界面时就已经缩放
 	if (dataScreenRef.value) {
 		dataScreenRef.value.style.transform = `scale(${getScale()}) translate(-50%, -50%)`;
